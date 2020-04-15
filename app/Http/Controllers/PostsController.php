@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Http\Requests\Posts\CreatePostsRequest;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -13,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('posts.index')->with('posts', Post::all());
     }
 
     /**
@@ -23,7 +25,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -32,9 +34,23 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostsRequest $request)
     {
-        //
+        // upload the image
+        $image = $request->image->store('posts');
+        // create the post
+        Post::Create([
+            'title' => $request->title,
+            'description'=> $request->description,
+            'content' => $request->content,
+            'image' => $image
+        ]);
+
+        // flash the message
+        session()->flash('success', 'Post created successfully');
+
+        // redirect the user
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -77,8 +93,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        session()->flash('success', 'Post trashed successfully');
+        return redirect(route('posts.index'));
     }
 }

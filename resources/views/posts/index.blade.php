@@ -2,27 +2,38 @@
 
 @section('content')
     <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('categories.create')}}" class="btn btn-success float-right my-2">Add Category </a>
+        <a href="{{ route('posts.create')}}" class="btn btn-success float-right my-2">Add Post </a>
     </div>
     <div class="card card-default">
         <div class="card-header">
-            Categories
+            Posts
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
-                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th></th>
                     <th></th>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($posts as $post)
                         <tr>
                             <td>
-                                {{ $category->name }}
+                                <img src="{{ asset($post->image) }}" alt="post image" width="100px"  height="80px">
                             </td>
                             <td>
-                                <button class="btn btn-danger float-right ml-1" onclick="handleDelete({{ $category->id }})">Delete</button>
-                                <a href="{{ route('categories.edit', $category->id)}}"  class="btn btn-primary float-right ml-1">Edit</a>
+                                {{ $post->title }}
+                            </td>
+                            <td>
+                                <a href="{{ route('posts.edit', $post->id)}}"  class="btn btn-primary float-right ml-1">Edit</a>
+                            </td>
+                            <td>
+                            <form action="{{ route('posts.destroy', $post->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger float-right ml-1">Trash</button>
+                            </form>
                             </td>
                         </tr>
                     @endforeach
@@ -36,7 +47,7 @@
                         @method('DELETE')
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Delete Category</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Delete Post</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -56,18 +67,7 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
 
-    <script>
-        function handleDelete(id) {
-            var form = document.getElementById('deleteCategoryForm')
-            form.action = '/categories/' + id
-            console.log('deleting', form);
-
-            $('#deleteModal').modal('show')
-        }
-    </script>
 
 @endsection
