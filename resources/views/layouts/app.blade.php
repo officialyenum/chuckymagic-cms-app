@@ -17,6 +17,16 @@
     @yield('css')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        a:hover{
+            color: whitesmoke;
+            text-decoration: none;
+        }
+        a.btn{
+            color: white;
+            text-decoration: none;
+        }
+    </style>
 
 </head>
 <body>
