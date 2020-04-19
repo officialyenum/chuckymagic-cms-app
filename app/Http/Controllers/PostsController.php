@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Http\Requests\Posts\UpdatePostsRequest;
@@ -27,7 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -46,6 +47,7 @@ class PostsController extends Controller
             'description'=> $request->description,
             'content' => $request->content,
             'published_at' => $request->published_at,
+            'category_id' => $request->category,
             'image' => $image
         ]);
 
@@ -75,7 +77,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post',$post);
+        return view('posts.create')->with('post',$post)->with('categories',Category::all());
     }
 
     /**
@@ -87,7 +89,7 @@ class PostsController extends Controller
      */
     public function update(UpdatePostsRequest $request, Post $post)
     {
-        $data = $request->only(['title','description','content','published_at']);
+        $data = $request->only(['title','description','content','published_at','category']);
         //check if new image
         if ($request->hasFile('image')) {
             //if new image upload it

@@ -13,6 +13,7 @@
                 <table class="table">
                     <thead>
                         <th>Name</th>
+                        <th>Post Count</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -20,6 +21,9 @@
                             <tr>
                                 <td>
                                     {{ $category->name }}
+                                </td>
+                                <td>
+                                    {{ $category->posts->count() }}
                                 </td>
                                 <td>
                                     <button class="btn btn-danger float-right ml-1" onclick="handleDelete({{ $category->id }})">Delete</button>
