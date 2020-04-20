@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Http\Requests\Posts\UpdatePostsRequest;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categories', Category::all());
+        return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -47,7 +48,7 @@ class PostsController extends Controller
         // upload the image
         $image = $request->image->store('posts');
         // create the post
-        Post::Create([
+        $post = Post::Create([
             'title' => $request->title,
             'description'=> $request->description,
             'content' => $request->content,
@@ -55,6 +56,10 @@ class PostsController extends Controller
             'category_id' => $request->category,
             'image' => $image
         ]);
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
 
         // flash the message
         session()->flash('success', 'Post created successfully');
@@ -82,7 +87,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post',$post)->with('categories',Category::all());
+        return view('posts.create')->with('post',$post)->with('categories',Category::all())->with('tags',Tag::all());
     }
 
     /**
@@ -94,7 +99,7 @@ class PostsController extends Controller
      */
     public function update(UpdatePostsRequest $request, Post $post)
     {
-        $data = $request->only(['title','description','content','published_at','category']);
+        $data = $request->only(['title','description','content','published_at']);
         //check if new image
         if ($request->hasFile('image')) {
             //if new image upload it
@@ -103,6 +108,10 @@ class PostsController extends Controller
             $post->deleteImage();
             //updata image data to be submitted
             $data['image'] =  $image;
+        }
+
+        if ($request->tags) {
+            $post->tags()->sync($request->tags);
         }
 
         //update data attributes

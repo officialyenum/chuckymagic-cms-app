@@ -13,7 +13,7 @@
                 <table class="table">
                     <thead>
                         <th>Name</th>
-                        <th>Post Count</th>
+                        <th>Posts Count</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -23,7 +23,7 @@
                                     {{ $tag->name }}
                                 </td>
                                 <td>
-                                    0
+                                    {{ $tag->posts->count() }}
                                 </td>
                                 <td>
                                     <button class="btn btn-danger float-right ml-1" onclick="handleDelete({{ $tag->id }})">Delete</button>
