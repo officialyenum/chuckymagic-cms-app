@@ -16,7 +16,10 @@
     <!-- Styles -->
     @yield('css')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         a:hover{
             color: whitesmoke;
@@ -99,6 +102,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
+                                @if (auth()->user()->isAdmin())
+                                    <li class="list-group-item">
+                                        <a href={{ route('users.index') }}>
+                                            Users
+                                        </a>
+                                    </li>
+                                 @endif
                                 <li class="list-group-item">
                                     <a href="{{ route('posts.index')}}">Post</a>
                                 </li>
@@ -128,9 +138,14 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+    <!-- Popper -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     @yield('scripts')
 </body>
 </html>

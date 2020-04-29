@@ -61,7 +61,7 @@
             @if ($tags->count() > 0)
             <div class="form-group">
                 <label for="tags">Tags</label>
-                <select name="tags[]" id="tags" class="form-control" multiple>
+                <select name="tags[]" id="tags" class="form-control tags-selector" multiple>
                     @foreach ($tags as $tag)
                         <option value="{{ $tag->id }}"
                             @if (isset($post))
@@ -94,6 +94,10 @@
     <script>
         flatpickr('#published_at', {
             enableTime: true
+        })
+
+        $(document).ready(function() {
+            $('.tags-selector').select2();
         })
     </script>
 
