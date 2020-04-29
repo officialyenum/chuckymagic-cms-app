@@ -4,7 +4,9 @@
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class PostsTableSeeder extends Seeder
 {
@@ -15,6 +17,18 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        $author1 = User::create([
+            'name' => 'Opone Adaeze',
+            'email' => 'oponeadaeze@gmail.com',
+            'password' => Hash::make('password')
+        ]);
+
+        $author2 = User::create([
+            'name' => 'Iwegbue Charles',
+            'email' => 'iwegbuecharles@gmail.com',
+            'password' => Hash::make('password')
+        ]);
+
         $category1 = Category::create([
             'name' => 'News'
         ]);
@@ -35,16 +49,17 @@ class PostsTableSeeder extends Seeder
             'description' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'category_id' => $category1->id,
+            'user_id' => $author2->id,
             'image' => 'posts/1.jpg'
         ]);
-        $post2 = Post::create([
+        $post2 = $author1->posts()->create([
             'title' => 'Top 5 brilliant content marketing strategies',
             'description' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'category_id' => $category2->id,
             'image' => 'posts/2.jpg'
         ]);
-        $post3 = Post::create([
+        $post3 = $author2->posts()->create([
             'title' => 'Best practices for minimalist design with example',
             'description' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
@@ -56,6 +71,7 @@ class PostsTableSeeder extends Seeder
             'description' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
             'category_id' => $category4->id,
+            'user_id' => $author1->id,
             'image' => 'posts/4.jpg'
         ]);
 
