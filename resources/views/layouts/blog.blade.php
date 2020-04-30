@@ -21,6 +21,26 @@
 
   <body>
 
+    <!-- Topbar -->
+    <section class="topbar d-lg-flex position-static">
+        <div class="container small-3">
+          <nav class="nav">
+            <a class="nav-link pl-0" href="#">About</a>
+            <a class="nav-link" href="#">Terms</a>
+            <a class="nav-link" href="#">FAQ</a>
+            <a class="nav-link" href="#">Help</a>
+          </nav>
+          <div class="col-6 col-lg-3 text-right order-lg-last">
+            <div class="social">
+              <a class="social-facebook" href="https://www.facebook.com/thethemeio"><i class="fa fa-facebook"></i></a>
+              <a class="social-twitter" href="https://twitter.com/chuckymagic"><i class="fa fa-twitter"></i></a>
+              <a class="social-instagram" href="https://www.instagram.com/chuckymagic/"><i class="fa fa-instagram"></i></a>
+              <a class="social-youtube" href="https://www.youtube.com/channel/UC0vvRCPV8yFDXLhtIaUCSvg?view_as=subscriber"><i class="fa fa-youtube"></i></a>
+              <a class="social-whatsapp" href="https://www.instagram.com/chuckymagic/"><i class="fa fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+    </section><!-- /.topbar -->
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-stick-dark" data-navbar="sticky">
@@ -35,14 +55,15 @@
         </div>
 
         <section class="navbar-mobile">
-          <span class="navbar-divider d-mobile-none"></span>
-
-          <ul class="nav nav-navbar">
-
-          </ul>
+            <nav class="nav nav-navbar mr-auto">
+              <a class="nav-link active" href="{{route('welcome')}}">Home</a>
+              <a class="nav-link" href="#">Explore</a>
+              <a class="nav-link" href="#">Create</a>
+              <a class="nav-link" href="#">Shop</a>
+            </nav>
         </section>
 
-    <a class="btn btn-xs btn-round btn-success" href="{{route('login')}}">Login</a>
+        <a class="btn btn-xs btn-round btn-success" href="{{route('login')}}">Login</a>
 
       </div>
     </nav><!-- /.navbar -->
