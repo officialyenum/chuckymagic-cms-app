@@ -55,6 +55,7 @@
         </div>
 
         <section class="navbar-mobile">
+            <span class="navbar-divider d-mobile-none"></span>
             <nav class="nav nav-navbar mr-auto">
               <a class="nav-link active" href="{{route('welcome')}}">Home</a>
               <a class="nav-link" href="#">Explore</a>
@@ -62,8 +63,36 @@
               <a class="nav-link" href="#">Shop</a>
             </nav>
         </section>
+        @auth
+            <a id="navbarDropdown" class="nav-link dropdown-toggle btn btn-xs btn-round btn-success text-white" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }} <span class="arrow"></span>
+            </a>
 
-        <a class="btn btn-xs btn-round btn-success" href="{{route('login')}}">Login</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('users.edit-profile') }}">
+                    My Profile
+                </a>
+
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+        @endauth
+
+        <!-- Right Side Of Navbar -->
+            <!-- Authentication Links -->
+        @guest
+                <a class="nav-link btn btn-xs btn-round btn-primary mr-3 text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+            @if (Route::has('register'))
+                <a class="nav-link btn btn-xs btn-round btn-success text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+            @endif
+        @endguest
 
       </div>
     </nav><!-- /.navbar -->
