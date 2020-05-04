@@ -24,7 +24,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::all());
+        return view('posts.index')->with('posts', Post::paginate(10));
     }
 
     /**
@@ -54,6 +54,7 @@ class PostsController extends Controller
             'content' => $request->content,
             'published_at' => $request->published_at,
             'category_id' => $request->category,
+            'user_id' => auth()->user()->id,
             'image' => $image
         ]);
 
