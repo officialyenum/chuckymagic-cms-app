@@ -76,8 +76,7 @@
 
             <div class="col-md-8 col-xl-9">
                 <div class="row gap-y">
-
-                @foreach ($posts as $post)
+                @forelse ($posts as $post)
                     <div class="col-md-6">
                     <div class="card border hover-shadow-6 mb-6 d-block">
                         <a href="#"><img class="card-img-top" src="{{ asset($post->image) }}" alt="Card image cap"></a>
@@ -87,79 +86,27 @@
                         </div>
                     </div>
                     </div>
-                @endforeach
+                @empty
+                    @if ($search)
+                        <p class="text-center">
+                            No results found for the search " <strong>{{ $search }}</strong> "
+                        </p>
+                    @else
+                        <p class="text-center">
+                            No results found"
+                        </p>
+                    @endif
+                @endforelse
 
                 </div>
-
-
-                <nav class="flexbox mt-30">
+                {{-- <nav class="flexbox mt-30">
                 <a class="btn btn-white disabled"><i class="ti-arrow-left fs-9 mr-4"></i> Newer</a>
                 <a class="btn btn-white" href="#">Older <i class="ti-arrow-right fs-9 ml-4"></i></a>
-                </nav>
+                </nav> --}}
+                {{ $posts->appends(['search' => request()->query('search')])->links()}}
             </div>
 
-
-
-            <div class="col-md-4 col-xl-3">
-                <div class="sidebar px-4 py-md-0">
-
-                <h6 class="sidebar-title">Search</h6>
-                <form class="input-group" target="#" method="GET">
-                    <input type="text" class="form-control" name="s" placeholder="Search">
-                    <div class="input-group-addon">
-                    <span class="input-group-text"><i class="ti-search"></i></span>
-                    </div>
-                </form>
-
-                <hr>
-
-                <h6 class="sidebar-title">Categories</h6>
-                <div class="row link-color-default fs-14 lh-24">
-                    @foreach ($categories as $category)
-                <div class="col-6"><a href="#">{{ $category->name }}</a></div>
-                    @endforeach
-                </div>
-
-                <hr>
-
-                <!--<h6 class="sidebar-title">Top posts</h6>
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                    <img class="rounded w-65px mr-4" src="../assets/img/thumb/4.jpg">
-                    <p class="media-body small-2 lh-4 mb-0">Thank to Maryam for joining our team</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                    <img class="rounded w-65px mr-4" src="../assets/img/thumb/3.jpg">
-                    <p class="media-body small-2 lh-4 mb-0">Best practices for minimalist design</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                    <img class="rounded w-65px mr-4" src="../assets/img/thumb/5.jpg">
-                    <p class="media-body small-2 lh-4 mb-0">New published books for product designers</p>
-                </a>
-
-                <a class="media text-default align-items-center mb-5" href="blog-single.html">
-                    <img class="rounded w-65px mr-4" src="../assets/img/thumb/2.jpg">
-                    <p class="media-body small-2 lh-4 mb-0">Top 5 brilliant content marketing strategies</p>
-                </a>
-
-                <hr>-->
-
-                <h6 class="sidebar-title">Tags</h6>
-                <div class="gap-multiline-items-1">
-                    @foreach ($tags as $tag)
-                    <a class="badge badge-secondary" href="#">{{$tag->name}}</a>
-                    @endforeach
-                </div>
-
-                <hr>
-
-                <h6 class="sidebar-title">About</h6>
-                <p class="small-3">This is a responsive, professional, and multipurpose Laravel, Software and WebApp Content Management System built by Opone Chukwuyenum.</p>
-
-
-                </div>
-            </div>
+            @include('partials.sidebar')
 
             </div>
         </div>
