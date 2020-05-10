@@ -49,19 +49,16 @@
                     </label>
                 </div>
 
-                <a class="text-muted small-2 ml-2" href="user-recover.html">Forgot password?</a>
+
+                <a class="text-muted small-2" href="{{ route('password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-block btn-primary">
                     {{ __('Login') }}
                 </button>
-
-                @if (Route::has('password.request'))
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif
             </div>
         </form>
       </div>

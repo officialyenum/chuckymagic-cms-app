@@ -59,7 +59,7 @@
 
                 <div class="modal fade" id="deleteModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                    <form action="" method="POST" id="deleteCategoryForm">
+                    <form action="" method="POST" id="deletePostForm">
                             @csrf
                             @method('DELETE')
                             <div class="modal-content">
@@ -88,6 +88,18 @@
         </div>
     </div>
 
+@endsection
 
+@section('scripts')
+
+    <script>
+        function handleDelete(id) {
+            var form = document.getElementById('deletePostForm')
+            form.action = '/posts/' + id
+            console.log('deleting', form);
+
+            $('#deleteModal').modal('show')
+        }
+    </script>
 
 @endsection

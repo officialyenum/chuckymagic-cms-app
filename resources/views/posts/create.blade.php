@@ -23,6 +23,10 @@
                 <textarea name="description" id="description" cols="5" rows="5" class="form-control">{{ isset($post) ? $post->description : ''}}</textarea>
             </div>
             <div class="form-group">
+                <label for="editor">Editor</label>
+                <textarea name="editor1"></textarea>
+            </div>
+            <div class="form-group">
                 <label for="content">Content</label>
             <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : ''}}">
                 <trix-editor input="content"></trix-editor>
@@ -89,6 +93,8 @@
 @endsection
 
 @section('scripts')
+2
+    <script src="js/froala_editor.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
@@ -100,7 +106,22 @@
             $('.tags-selector').select2();
         })
     </script>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script>
+            CKEDITOR.replace( 'editor1' );
+    </script>
 
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
+    <script>
+            ClassicEditor
+                    .create( document.querySelector( '#editor' ) )
+                    .then( editor => {
+                            console.log( editor );
+                    } )
+                    .catch( error => {
+                            console.error( error );
+                    } );
+    </script> --}}
 @endsection
 
 @section('css')

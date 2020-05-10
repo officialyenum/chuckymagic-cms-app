@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/theme
 .env
 .env.backup
 .DS_Store
